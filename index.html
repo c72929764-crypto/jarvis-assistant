@@ -1,1 +1,168 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JARVIS - Mon assistant intelligent</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: linear-gradient(135deg, #07111f, #102d46, #05080d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(15, 28, 44, 0.96);
+      border: 1px solid #284967;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 40px #0008;
+    }
+
+    h1 {
+      text-align: center;
+      color: #55d6ff;
+      letter-spacing: 3px;
+    }
+
+    .status {
+      text-align: center;
+      color: #a9c6da;
+      margin-bottom: 20px;
+    }
+
+    #messages {
+      height: 280px;
+      overflow-y: auto;
+      padding: 12px;
+      background: #07111d;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+      line-height: 1.5;
+    }
+
+    .user {
+      background: #174b70;
+    }
+
+    .jarvis {
+      background: #1b2c3c;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 75px;
+      padding: 12px;
+      border: 1px solid #41627d;
+      border-radius: 10px;
+      background: #091522;
+      color: white;
+      font: inherit;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #16a6d8;
+      color: #00111c;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+    }
+
+    .note {
+      color: #a9c6da;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <h1>J.A.R.V.I.S.</h1>
+    <p class="status">Votre assistant intelligent</p>
+
+    <div id="messages" aria-live="polite">
+      <div class="message jarvis">
+        Bonjour ! Je suis JARVIS. Écris un message pour commencer.
+      </div>
+    </div>
+
+    <form id="chatForm">
+      <textarea id="question"
+        placeholder="Écris ton message ici..."
+        required></textarea>
+      <button id="sendButton" type="submit">
+        Envoyer
+      </button>
+    </form>
+
+    <p class="note">
+      Première version de démonstration. La connexion à
+      l'intelligence artificielle sera configurée côté serveur
+      pour protéger la clé API.
+    </p>
+  </main>
+
+  <script>
+    const form = document.getElementById("chatForm");
+    const questionInput = document.getElementById("question");
+    const messages = document.getElementById("messages");
+    const sendButton = document.getElementById("sendButton");
+
+    function afficherMessage(texte, classe) {
+      const element = document.createElement("div");
+      element.className = "message " + classe;
+      element.textContent = texte;
+      messages.appendChild(element);
+      messages.scrollTop = messages.scrollHeight;
+      return element;
+    }
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const question = questionInput.value.trim();
+      if (!question) return;
+
+      afficherMessage("Toi : " + question, "user");
+      afficherMessage(
+        "Je t'écoute ! L'interface fonctionne. " +
+        "La connexion à l'IA sera ajoutée après cette étape.",
+        "jarvis"
+      );
+
+      questionInput.value = "";
+    });
+  </script>
+</body>
+</html>
+
